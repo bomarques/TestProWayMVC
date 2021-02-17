@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProWay", "ProWay\ProWay.csproj", "{B471A465-7BB3-4150-9695-16CBB1E352AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B471A465-7BB3-4150-9695-16CBB1E352AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B471A465-7BB3-4150-9695-16CBB1E352AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B471A465-7BB3-4150-9695-16CBB1E352AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B471A465-7BB3-4150-9695-16CBB1E352AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3AF8471C-B77B-4363-845F-488CDC2F1EA7}
+	EndGlobalSection
+EndGlobal
