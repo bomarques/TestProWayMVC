@@ -13,7 +13,8 @@ Nome VARCHAR(50),
 Capacidade INTEGER
 );
 CREATE TABLE EtapaSala(
-Etapa BIT,
+Id_Etapa INTEGER IDENTITY(1,1) PRIMARY KEY,
+Etapa INTEGER,
 Id_Aluno INTEGER,
 Id_Sala INTEGER,
 FOREIGN KEY (Id_Aluno) REFERENCES Alunos(Id_Aluno),
@@ -24,10 +25,10 @@ Id_Cafeteria INTEGER IDENTITY(1,1) PRIMARY KEY,
 Nome VARCHAR(50)
 );
 CREATE TABLE TurnoCafeteria (
-Turno BIT,
+Id_TurnoCafeteria INTEGER IDENTITY(1,1) PRIMARY KEY,
+Turno INTEGER,
 Id_Aluno INTEGER,
 Id_Cafeteria INTEGER,
 FOREIGN KEY (Id_Aluno) REFERENCES Alunos(Id_Aluno),
 FOREIGN KEY (Id_Cafeteria) REFERENCES Cafeteria(Id_Cafeteria)
 );
-
