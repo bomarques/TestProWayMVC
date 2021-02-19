@@ -66,23 +66,26 @@ namespace ProWay.Models
 
             modelBuilder.Entity<EtapaSala>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.IdEtapa)
+                    .HasName("PK__EtapaSal__B50AF54714AB864A");
 
                 entity.ToTable("EtapaSala");
+
+                entity.Property(e => e.IdEtapa).HasColumnName("Id_Etapa");
 
                 entity.Property(e => e.IdAluno).HasColumnName("Id_Aluno");
 
                 entity.Property(e => e.IdSala).HasColumnName("Id_Sala");
 
                 entity.HasOne(d => d.IdAlunoNavigation)
-                    .WithMany()
+                    .WithMany(p => p.EtapaSalas)
                     .HasForeignKey(d => d.IdAluno)
-                    .HasConstraintName("FK__EtapaSala__Id_Al__398D8EEE");
+                    .HasConstraintName("FK__EtapaSala__Id_Al__5629CD9C");
 
                 entity.HasOne(d => d.IdSalaNavigation)
-                    .WithMany()
+                    .WithMany(p => p.EtapaSalas)
                     .HasForeignKey(d => d.IdSala)
-                    .HasConstraintName("FK__EtapaSala__Id_Sa__3A81B327");
+                    .HasConstraintName("FK__EtapaSala__Id_Sa__571DF1D5");
             });
 
             modelBuilder.Entity<Sala>(entity =>
@@ -99,21 +102,24 @@ namespace ProWay.Models
 
             modelBuilder.Entity<TurnoCafeteria>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.IdTurnoCafeteria)
+                    .HasName("PK__TurnoCaf__E5617790AFF298F3");
+
+                entity.Property(e => e.IdTurnoCafeteria).HasColumnName("Id_TurnoCafeteria");
 
                 entity.Property(e => e.IdAluno).HasColumnName("Id_Aluno");
 
                 entity.Property(e => e.IdCafeteria).HasColumnName("Id_Cafeteria");
 
                 entity.HasOne(d => d.IdAlunoNavigation)
-                    .WithMany()
+                    .WithMany(p => p.TurnoCafeteria)
                     .HasForeignKey(d => d.IdAluno)
-                    .HasConstraintName("FK__TurnoCafe__Id_Al__3E52440B");
+                    .HasConstraintName("FK__TurnoCafe__Id_Al__52593CB8");
 
                 entity.HasOne(d => d.IdCafeteriaNavigation)
-                    .WithMany()
+                    .WithMany(p => p.TurnoCafeteria)
                     .HasForeignKey(d => d.IdCafeteria)
-                    .HasConstraintName("FK__TurnoCafe__Id_Ca__3F466844");
+                    .HasConstraintName("FK__TurnoCafe__Id_Ca__534D60F1");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -180,3 +180,8 @@ C:\Users\Bruno\source\repos\ProWay\ProWay\obj\Debug\net5.0\Razor\Views\Cafeteria
 C:\Users\Bruno\source\repos\ProWay\ProWay\obj\Debug\net5.0\Razor\Views\Cafeterias\Details.cshtml.g.cs
 C:\Users\Bruno\source\repos\ProWay\ProWay\obj\Debug\net5.0\Razor\Views\Cafeterias\Edit.cshtml.g.cs
 C:\Users\Bruno\source\repos\ProWay\ProWay\obj\Debug\net5.0\Razor\Views\Cafeterias\Index.cshtml.g.cs
+C:\Users\Bruno\source\repos\ProWay\ProWay\obj\Debug\net5.0\Razor\Views\EtapaSalas\Create.cshtml.g.cs
+C:\Users\Bruno\source\repos\ProWay\ProWay\obj\Debug\net5.0\Razor\Views\EtapaSalas\Delete.cshtml.g.cs
+C:\Users\Bruno\source\repos\ProWay\ProWay\obj\Debug\net5.0\Razor\Views\EtapaSalas\Details.cshtml.g.cs
+C:\Users\Bruno\source\repos\ProWay\ProWay\obj\Debug\net5.0\Razor\Views\EtapaSalas\Edit.cshtml.g.cs
+C:\Users\Bruno\source\repos\ProWay\ProWay\obj\Debug\net5.0\Razor\Views\EtapaSalas\Index.cshtml.g.cs

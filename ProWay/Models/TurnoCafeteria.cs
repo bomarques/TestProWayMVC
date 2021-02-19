@@ -7,7 +7,8 @@ namespace ProWay.Models
 {
     public partial class TurnoCafeteria
     {
-        public bool? Turno { get; set; }
+        public int IdTurnoCafeteria { get; set; }
+        public int? Turno { get; set; }
         public int? IdAluno { get; set; }
         public int? IdCafeteria { get; set; }
 

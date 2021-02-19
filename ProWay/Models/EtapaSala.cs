@@ -7,7 +7,8 @@ namespace ProWay.Models
 {
     public partial class EtapaSala
     {
-        public bool? Etapa { get; set; }
+        public int IdEtapa { get; set; }
+        public int? Etapa { get; set; }
         public int? IdAluno { get; set; }
         public int? IdSala { get; set; }
 
