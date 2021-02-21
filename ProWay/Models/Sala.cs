@@ -9,13 +9,13 @@ namespace ProWay.Models
     {
         public Sala()
         {
-            EtapaSalas = new HashSet<EtapaSala>();
+            Matriculas = new HashSet<Matricula>();
         }
 
-        public int IdSala { get; set; }
+        public int SalaId { get; set; }
         public string Nome { get; set; }
         public int? Capacidade { get; set; }
 
-        public virtual ICollection<EtapaSala> EtapaSalas { get; set; }
+        public virtual ICollection<Matricula> Matriculas { get; set; }
     }
 }

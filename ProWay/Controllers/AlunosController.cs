@@ -33,7 +33,7 @@ namespace ProWay.Controllers
             }
 
             var aluno = await _context.Alunos
-                .FirstOrDefaultAsync(m => m.IdAluno == id);
+                .FirstOrDefaultAsync(m => m.AlunoId == id);
             if (aluno == null)
             {
                 return NotFound();
@@ -53,7 +53,7 @@ namespace ProWay.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdAluno,Nome,Sobrenome")] Aluno aluno)
+        public async Task<IActionResult> Create([Bind("AlunoId,Nome,Sobrenome,Matricula")] Aluno aluno)
         {
             if (ModelState.IsValid)
             {
@@ -85,9 +85,9 @@ namespace ProWay.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdAluno,Nome,Sobrenome")] Aluno aluno)
+        public async Task<IActionResult> Edit(int id, [Bind("AlunoId,Nome,Sobrenome,Matricula")] Aluno aluno)
         {
-            if (id != aluno.IdAluno)
+            if (id != aluno.AlunoId)
             {
                 return NotFound();
             }
@@ -101,7 +101,7 @@ namespace ProWay.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AlunoExists(aluno.IdAluno))
+                    if (!AlunoExists(aluno.AlunoId))
                     {
                         return NotFound();
                     }
@@ -124,7 +124,7 @@ namespace ProWay.Controllers
             }
 
             var aluno = await _context.Alunos
-                .FirstOrDefaultAsync(m => m.IdAluno == id);
+                .FirstOrDefaultAsync(m => m.AlunoId == id);
             if (aluno == null)
             {
                 return NotFound();
@@ -146,7 +146,7 @@ namespace ProWay.Controllers
 
         private bool AlunoExists(int id)
         {
-            return _context.Alunos.Any(e => e.IdAluno == id);
+            return _context.Alunos.Any(e => e.AlunoId == id);
         }
     }
 }

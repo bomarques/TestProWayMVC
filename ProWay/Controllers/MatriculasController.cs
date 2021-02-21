@@ -9,22 +9,23 @@ using ProWay.Models;
 
 namespace ProWay.Controllers
 {
-    public class CafeteriasController : Controller
+    public class MatriculasController : Controller
     {
         private readonly testeprowayContext _context;
 
-        public CafeteriasController(testeprowayContext context)
+        public MatriculasController(testeprowayContext context)
         {
             _context = context;
         }
 
-        // GET: Cafeterias
+        // GET: Matriculas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cafeteria.ToListAsync());
+            var testeprowayContext = _context.Matriculas.Include(m => m.Aluno).Include(m => m.Sala);
+            return View(await testeprowayContext.ToListAsync());
         }
 
-        // GET: Cafeterias/Details/5
+        // GET: Matriculas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +33,45 @@ namespace ProWay.Controllers
                 return NotFound();
             }
 
-            var cafeteria = await _context.Cafeteria
-                .FirstOrDefaultAsync(m => m.IdCafeteria == id);
-            if (cafeteria == null)
+            var matricula = await _context.Matriculas
+                .Include(m => m.Aluno)
+                .Include(m => m.Sala)
+                .FirstOrDefaultAsync(m => m.MatriculaId == id);
+            if (matricula == null)
             {
                 return NotFound();
             }
 
-            return View(cafeteria);
+            return View(matricula);
         }
 
-        // GET: Cafeterias/Create
+        // GET: Matriculas/Create
         public IActionResult Create()
         {
+            ViewData["AlunoId"] = new SelectList(_context.Alunos, "AlunoId", "Nome");
+            ViewData["SalaId"] = new SelectList(_context.Salas, "SalaId", "Nome");
             return View();
         }
 
-        // POST: Cafeterias/Create
+        // POST: Matriculas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCafeteria,Nome")] Cafeteria cafeteria)
+        public async Task<IActionResult> Create([Bind("MatriculaId,AlunoId,SalaId")] Matricula matricula)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cafeteria);
+                _context.Add(matricula);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cafeteria);
+            ViewData["AlunoId"] = new SelectList(_context.Alunos, "AlunoId", "AlunoId", matricula.AlunoId);
+            ViewData["SalaId"] = new SelectList(_context.Salas, "SalaId", "SalaId", matricula.SalaId);
+            return View(matricula);
         }
 
-        // GET: Cafeterias/Edit/5
+        // GET: Matriculas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +79,24 @@ namespace ProWay.Controllers
                 return NotFound();
             }
 
-            var cafeteria = await _context.Cafeteria.FindAsync(id);
-            if (cafeteria == null)
+            var matricula = await _context.Matriculas.FindAsync(id);
+            if (matricula == null)
             {
                 return NotFound();
             }
-            return View(cafeteria);
+            ViewData["AlunoId"] = new SelectList(_context.Alunos, "AlunoId", "AlunoId", matricula.AlunoId);
+            ViewData["SalaId"] = new SelectList(_context.Salas, "SalaId", "SalaId", matricula.SalaId);
+            return View(matricula);
         }
 
-        // POST: Cafeterias/Edit/5
+        // POST: Matriculas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCafeteria,Nome")] Cafeteria cafeteria)
+        public async Task<IActionResult> Edit(int id, [Bind("MatriculaId,AlunoId,SalaId")] Matricula matricula)
         {
-            if (id != cafeteria.IdCafeteria)
+            if (id != matricula.MatriculaId)
             {
                 return NotFound();
             }
@@ -96,12 +105,12 @@ namespace ProWay.Controllers
             {
                 try
                 {
-                    _context.Update(cafeteria);
+                    _context.Update(matricula);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CafeteriaExists(cafeteria.IdCafeteria))
+                    if (!MatriculaExists(matricula.MatriculaId))
                     {
                         return NotFound();
                     }
@@ -112,10 +121,12 @@ namespace ProWay.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(cafeteria);
+            ViewData["AlunoId"] = new SelectList(_context.Alunos, "AlunoId", "AlunoId", matricula.AlunoId);
+            ViewData["SalaId"] = new SelectList(_context.Salas, "SalaId", "SalaId", matricula.SalaId);
+            return View(matricula);
         }
 
-        // GET: Cafeterias/Delete/5
+        // GET: Matriculas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +134,32 @@ namespace ProWay.Controllers
                 return NotFound();
             }
 
-            var cafeteria = await _context.Cafeteria
-                .FirstOrDefaultAsync(m => m.IdCafeteria == id);
-            if (cafeteria == null)
+            var matricula = await _context.Matriculas
+                .Include(m => m.Aluno)
+                .Include(m => m.Sala)
+                .FirstOrDefaultAsync(m => m.MatriculaId == id);
+            if (matricula == null)
             {
                 return NotFound();
             }
 
-            return View(cafeteria);
+            return View(matricula);
         }
 
-        // POST: Cafeterias/Delete/5
+        // POST: Matriculas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cafeteria = await _context.Cafeteria.FindAsync(id);
-            _context.Cafeteria.Remove(cafeteria);
+            var matricula = await _context.Matriculas.FindAsync(id);
+            _context.Matriculas.Remove(matricula);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CafeteriaExists(int id)
+        private bool MatriculaExists(int id)
         {
-            return _context.Cafeteria.Any(e => e.IdCafeteria == id);
+            return _context.Matriculas.Any(e => e.MatriculaId == id);
         }
     }
 }

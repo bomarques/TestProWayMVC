@@ -33,7 +33,7 @@ namespace ProWay.Controllers
             }
 
             var sala = await _context.Salas
-                .FirstOrDefaultAsync(m => m.IdSala == id);
+                .FirstOrDefaultAsync(m => m.SalaId == id);
             if (sala == null)
             {
                 return NotFound();
@@ -53,7 +53,7 @@ namespace ProWay.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdSala,Nome,Capacidade")] Sala sala)
+        public async Task<IActionResult> Create([Bind("SalaId,Nome,Capacidade")] Sala sala)
         {
             if (ModelState.IsValid)
             {
@@ -85,9 +85,9 @@ namespace ProWay.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdSala,Nome,Capacidade")] Sala sala)
+        public async Task<IActionResult> Edit(int id, [Bind("SalaId,Nome,Capacidade")] Sala sala)
         {
-            if (id != sala.IdSala)
+            if (id != sala.SalaId)
             {
                 return NotFound();
             }
@@ -101,7 +101,7 @@ namespace ProWay.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SalaExists(sala.IdSala))
+                    if (!SalaExists(sala.SalaId))
                     {
                         return NotFound();
                     }
@@ -124,7 +124,7 @@ namespace ProWay.Controllers
             }
 
             var sala = await _context.Salas
-                .FirstOrDefaultAsync(m => m.IdSala == id);
+                .FirstOrDefaultAsync(m => m.SalaId == id);
             if (sala == null)
             {
                 return NotFound();
@@ -146,7 +146,7 @@ namespace ProWay.Controllers
 
         private bool SalaExists(int id)
         {
-            return _context.Salas.Any(e => e.IdSala == id);
+            return _context.Salas.Any(e => e.SalaId == id);
         }
     }
 }

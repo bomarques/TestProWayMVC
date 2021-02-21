@@ -5,20 +5,16 @@ using System.Collections.Generic;
 
 namespace ProWay.Models
 {
-    public partial class Aluno
+    public partial class Lanchonete
     {
-        public Aluno()
+        public Lanchonete()
         {
-            Matriculas = new HashSet<Matricula>();
             TurnoLanchonetes = new HashSet<TurnoLanchonete>();
         }
 
-        public int AlunoId { get; set; }
+        public int LanchoneteId { get; set; }
         public string Nome { get; set; }
-        public string Sobrenome { get; set; }
-        public int? Matricula { get; set; }
 
-        public virtual ICollection<Matricula> Matriculas { get; set; }
         public virtual ICollection<TurnoLanchonete> TurnoLanchonetes { get; set; }
     }
 }

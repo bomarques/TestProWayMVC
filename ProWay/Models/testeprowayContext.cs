@@ -18,10 +18,10 @@ namespace ProWay.Models
         }
 
         public virtual DbSet<Aluno> Alunos { get; set; }
-        public virtual DbSet<Cafeteria> Cafeteria { get; set; }
-        public virtual DbSet<EtapaSala> EtapaSalas { get; set; }
+        public virtual DbSet<Lanchonete> Lanchonetes { get; set; }
+        public virtual DbSet<Matricula> Matriculas { get; set; }
         public virtual DbSet<Sala> Salas { get; set; }
-        public virtual DbSet<TurnoCafeteria> TurnoCafeteria { get; set; }
+        public virtual DbSet<TurnoLanchonete> TurnoLanchonetes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,11 +38,6 @@ namespace ProWay.Models
 
             modelBuilder.Entity<Aluno>(entity =>
             {
-                entity.HasKey(e => e.IdAluno)
-                    .HasName("PK__Alunos__92579F310B0C8D57");
-
-                entity.Property(e => e.IdAluno).HasColumnName("Id_Aluno");
-
                 entity.Property(e => e.Nome)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -52,74 +47,53 @@ namespace ProWay.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Cafeteria>(entity =>
+            modelBuilder.Entity<Lanchonete>(entity =>
             {
-                entity.HasKey(e => e.IdCafeteria)
-                    .HasName("PK__Cafeteri__1F059AE7B478A03C");
-
-                entity.Property(e => e.IdCafeteria).HasColumnName("Id_Cafeteria");
+                entity.ToTable("Lanchonete");
 
                 entity.Property(e => e.Nome)
                     .HasMaxLength(50)
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<EtapaSala>(entity =>
+            modelBuilder.Entity<Matricula>(entity =>
             {
-                entity.HasKey(e => e.IdEtapa)
-                    .HasName("PK__EtapaSal__B50AF54714AB864A");
+                entity.ToTable("Matricula");
 
-                entity.ToTable("EtapaSala");
+                entity.HasOne(d => d.Aluno)
+                    .WithMany(p => p.Matriculas)
+                    .HasForeignKey(d => d.AlunoId)
+                    .HasConstraintName("FK__Matricula__Aluno__3A81B327");
 
-                entity.Property(e => e.IdEtapa).HasColumnName("Id_Etapa");
-
-                entity.Property(e => e.IdAluno).HasColumnName("Id_Aluno");
-
-                entity.Property(e => e.IdSala).HasColumnName("Id_Sala");
-
-                entity.HasOne(d => d.IdAlunoNavigation)
-                    .WithMany(p => p.EtapaSalas)
-                    .HasForeignKey(d => d.IdAluno)
-                    .HasConstraintName("FK__EtapaSala__Id_Al__5629CD9C");
-
-                entity.HasOne(d => d.IdSalaNavigation)
-                    .WithMany(p => p.EtapaSalas)
-                    .HasForeignKey(d => d.IdSala)
-                    .HasConstraintName("FK__EtapaSala__Id_Sa__571DF1D5");
+                entity.HasOne(d => d.Sala)
+                    .WithMany(p => p.Matriculas)
+                    .HasForeignKey(d => d.SalaId)
+                    .HasConstraintName("FK__Matricula__SalaI__3B75D760");
             });
 
             modelBuilder.Entity<Sala>(entity =>
             {
-                entity.HasKey(e => e.IdSala)
-                    .HasName("PK__Salas__ACDC9E2322D173EA");
-
-                entity.Property(e => e.IdSala).HasColumnName("Id_Sala");
-
                 entity.Property(e => e.Nome)
                     .HasMaxLength(50)
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<TurnoCafeteria>(entity =>
+            modelBuilder.Entity<TurnoLanchonete>(entity =>
             {
-                entity.HasKey(e => e.IdTurnoCafeteria)
-                    .HasName("PK__TurnoCaf__E5617790AFF298F3");
+                entity.HasKey(e => e.IdTurnoLanchonete)
+                    .HasName("PK__TurnoLan__FAFF3E5DF62E9D5E");
 
-                entity.Property(e => e.IdTurnoCafeteria).HasColumnName("Id_TurnoCafeteria");
+                entity.ToTable("TurnoLanchonete");
 
-                entity.Property(e => e.IdAluno).HasColumnName("Id_Aluno");
+                entity.HasOne(d => d.Aluno)
+                    .WithMany(p => p.TurnoLanchonetes)
+                    .HasForeignKey(d => d.AlunoId)
+                    .HasConstraintName("FK__TurnoLanc__Aluno__403A8C7D");
 
-                entity.Property(e => e.IdCafeteria).HasColumnName("Id_Cafeteria");
-
-                entity.HasOne(d => d.IdAlunoNavigation)
-                    .WithMany(p => p.TurnoCafeteria)
-                    .HasForeignKey(d => d.IdAluno)
-                    .HasConstraintName("FK__TurnoCafe__Id_Al__52593CB8");
-
-                entity.HasOne(d => d.IdCafeteriaNavigation)
-                    .WithMany(p => p.TurnoCafeteria)
-                    .HasForeignKey(d => d.IdCafeteria)
-                    .HasConstraintName("FK__TurnoCafe__Id_Ca__534D60F1");
+                entity.HasOne(d => d.Lanchonete)
+                    .WithMany(p => p.TurnoLanchonetes)
+                    .HasForeignKey(d => d.LanchoneteId)
+                    .HasConstraintName("FK__TurnoLanc__Lanch__412EB0B6");
             });
 
             OnModelCreatingPartial(modelBuilder);
